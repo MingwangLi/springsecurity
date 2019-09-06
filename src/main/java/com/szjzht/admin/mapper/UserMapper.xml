@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szjzht.admin.mapper.UserMapper">
+
+
+    <!--已经设置了别名 这里可以用user User com.szjzht.admin.model.User-->
+    <select id="getUserList" resultType="User">
+        select * from user;
+    </select>
+
+</mapper>
