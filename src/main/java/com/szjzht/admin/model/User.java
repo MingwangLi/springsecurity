@@ -1,16 +1,19 @@
 package com.szjzht.admin.model;
 
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Id;
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: mayn
  * @Date: 2019/9/5 14:04
  * @Description:
  */
-public class User implements Serializable {
+public class User implements UserDetails {
 
     /*CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -33,6 +36,17 @@ public class User implements Serializable {
     private Date createTime;
     private Date updateTime;
     private Integer enable;
+
+    private List<Role> roleList;
+    private Collection<? extends GrantedAuthority> grantedAuthorities;
+
+    public Collection<? extends GrantedAuthority> getGrantedAuthorities() {
+        return grantedAuthorities;
+    }
+
+    public void setGrantedAuthorities(Collection<? extends GrantedAuthority> grantedAuthorities) {
+        this.grantedAuthorities = grantedAuthorities;
+    }
 
     public Integer getId() {
         return id;
@@ -98,4 +112,46 @@ public class User implements Serializable {
         this.enable = enable;
     }
 
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return grantedAuthorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return getUserPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return getUserName();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

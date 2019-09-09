@@ -2,6 +2,7 @@ package com.szjzht.admin.model;
 
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Auther: mayn
@@ -20,7 +21,7 @@ public class Resource implements Serializable {
     private Integer type;//资源类型   1:菜单    2：按钮
     private Integer sort;//排序
 
-    //private List<Role> roles; //可访问角色
+    private List<Role> roles; //可访问角色
 
 
     public Integer getId() {
@@ -64,12 +65,12 @@ public class Resource implements Serializable {
         this.sort = sort;
     }
 
-//    public List<Role> getRoles() {
-//        return roles;
-//    }
-//    public void setRoles(List<Role> roles) {
-//        this.roles = roles;
-//    }
+    public List<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public String getResKey() {
         return resKey;

@@ -1,6 +1,6 @@
 package com.szjzht.admin.common.constant;
 
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 /**
  * 通用返回对象
@@ -17,6 +17,17 @@ public class Result {
     private boolean success;
     //数据对象
     private Object data;
+
+
+
+    public static Result success() {
+        Result result = new Result();
+        result.setCode(200);
+        result.setMsg("请求成功");
+        result.setSuccess(true);
+        result.setData(null);
+        return  result;
+    }
 
     public static Result success(Object data) {
         Result result = new Result();
