@@ -35,16 +35,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginFailureAuthenticationHandler failureAuthenticationHandler;
 
-    /*虽然mvc设置了静态文件 这里一定需要重新设定 请求先到mvc 再到security*/
+    /*虽然mvc设置了静态文件 这里一定需要重新设定 请求先到mvc 再到security  貌似这里只能配置资源文件 不能配置url 在configure(HttpSecurity http)  难道还要在mvc配置 怎么配*/
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("/static/**","/swagger-ui.html","/swagger-resources/**","/v2/**","/webjars/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
+                //.antMatchers("/swagger-ui.html").permitAll()
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O o) {

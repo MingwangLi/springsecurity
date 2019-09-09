@@ -57,7 +57,7 @@ public class SpringfoxConfiguration {
 
     private ApiInfo createApiInfo() {
         return new ApiInfoBuilder().
-                title("Kexin BNBAdmin System API").
+                title("Admin System API").
                 description("This document is REST API specification for Admin System").
                 version("0.1.0.SNAPSHOT").
                 build();

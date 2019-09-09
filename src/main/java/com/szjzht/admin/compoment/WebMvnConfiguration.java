@@ -52,7 +52,12 @@ public class WebMvnConfiguration extends WebMvcConfigurationSupport {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**") // 对外暴露的访问路径
                 .addResourceLocations("classpath:/static/"); // 文件放置的目录
+        registry.addResourceHandler("/swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/swagger-resources/**");
+        registry.addResourceHandler("/v2/**");
     }
-
 
 }
