@@ -4,9 +4,7 @@ import com.szjzht.admin.mapper.UserMapper;
 import com.szjzht.admin.mapper.UserRoleMapper;
 import com.szjzht.admin.model.Role;
 import com.szjzht.admin.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.SecurityConfig;
+import org.springframework.beans.factory.annotation.Autowired;;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,13 +14,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
 /**
+ * 登陆认证、加载改用户所有角色集合
  * @Auther: mayn
  * @Date: 2019/9/9 10:16
  * @Description:

@@ -1,5 +1,6 @@
 package com.szjzht.admin.security;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -13,6 +14,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
+ * 鉴权中心
  * @Auther: mayn
  * @Date: 2019/9/9 10:54
  * @Description:
@@ -33,15 +35,15 @@ public class UrlAccessDecisionManager implements AccessDecisionManager {
                 }
             }
             //当前用户所具有的权限
-            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-            for (GrantedAuthority authority : authorities) {
-                if (authority.getAuthority().equals(needRole)) {
-                    return;
-                }
-            }
+//            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+//            for (GrantedAuthority authority : authorities) {
+//                if (authority.getAuthority().equals(needRole)) {
+//                    return;
+//                }
+//            }
         }
         //如果没有匹配到数据库配置的url 都会返回权限不足
-        throw new AccessDeniedException("权限不足!");
+        //throw new AccessDeniedException("权限不足!");
     }
 
     @Override

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
+ * 认证鉴权失败处理类
  * @Auther: mayn
  * @Date: 2019/9/9 10:56
  * @Description:
