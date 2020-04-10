@@ -5,13 +5,8 @@ import com.szjzht.admin.mapper.UserMapper;
 import com.szjzht.admin.model.User;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
@@ -20,40 +15,37 @@ import java.util.List;
  * @Description:
  */
 @Api(value = "/user", description = "用户模块")
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserMapper userMapper;
 
-    // TODO: 2019/9/9 这里的权限既可以通过数据库RoleResource配置 也可以通过@PreAuthorize("hasRole('ROLE_ROOT')")配置 如果都配置 我猜应该先校验数据库配置 再校验注解 推荐使用注解 role resouce role_resouce  需要配置url 并且role名字固定ROLE_* 侵入性太强
-    @ApiOperation(value = "用户列表",tags = "用户列表接口")
+    @ApiOperation(value = "用户列表")
     @GetMapping("/list")
-    @ResponseBody
-    //@PreAuthorize("hasRole('ROLE_ROOT')")
     public Result getUserList() {
         List<User> userList = userMapper.selectAll();
         return Result.success(userList);
     }
 
 
+    @ApiOperation(value = "添加用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name="userName",value="用户名",dataType="string", paramType = "write",example="test", required = true),
-            @ApiImplicitParam(name="password",value="用户密码",dataType="string", paramType = "write",required = true),
-            @ApiImplicitParam(name="nickName",value="用户昵称",dataType="string", paramType = "write",required = true)
+            @ApiImplicitParam(name="userName",value="用户名",dataType="string", paramType = "query", required = true),
+            @ApiImplicitParam(name="password",value="用户密码",dataType="string", paramType = "query",required = true),
+            @ApiImplicitParam(name="nickName",value="用户昵称",dataType="string", paramType = "query",required = true)
     })
-    @ApiOperation(value = "添加用户",tags = "用户添加接口")
-    @GetMapping ("/add")
-    @ResponseBody
-    public Result addUser(String userName, String password, String nickName, HttpServletRequest request) {
+    @PostMapping("/add")
+    public Result addUser(String userName, String password, String nickName) {
         User user = new User();
         user.setEnable(1);
         user.setUserName(userName);
         user.setUserPassword(password);
         user.setNickName(nickName);
-        // TODO: 2019/9/9 SpirngSecurity应该有登陆成功之后的session管理
-        //request.getSession().getAttribute()
+        String loginUserName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loginUser = userMapper.findUserByName(loginUserName);
+        user.setCreatorId(loginUser.getId());
         userMapper.insert(user);
         return Result.success();
     }

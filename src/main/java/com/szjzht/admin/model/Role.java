@@ -16,8 +16,6 @@ public class Role implements Serializable {
     private String roleKey; //角色key
     private String roleDesc;//角色名称
 
-//    private List<Resource> resources;
-
     public Integer getId() {
         return id;
     }
@@ -36,12 +34,7 @@ public class Role implements Serializable {
     public void setRoleDesc(String roleDesc) {
         this.roleDesc = roleDesc;
     }
-//    public List<Resource> getResources() {
-//        return resources;
-//    }
-//    public void setResources(List<Resource> resources) {
-//        this.resources = resources;
-//    }
+
 
 
 }

@@ -1,8 +1,7 @@
 package com.szjzht.admin.security;
 
-import com.mysql.jdbc.StringUtils;
 import com.szjzht.admin.utils.MD5Util;
-import org.apache.tomcat.util.security.MD5Encoder;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +22,9 @@ public class MyPasswordEncoder implements PasswordEncoder {
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        // TODO: 2019/9/9 空判断
+        if (StringUtils.isEmpty(rawPassword)) {
+            return false;
+        }
         String encode = MD5Util.md5(rawPassword.toString());
         if (encode.equals(encodedPassword)) {
             return true;
