@@ -5,7 +5,6 @@ import com.szjzht.admin.mapper.UserMapper;
 import com.szjzht.admin.model.User;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +27,6 @@ public class UserController {
 
     @ApiOperation(value = "用户列表")
     @GetMapping("/list")
-    //@PreAuthorize("hasRole('ROLE_USER')")
     public Result getUserList() {
         List<User> userList = userMapper.selectAll();
         return Result.success(userList);
@@ -43,7 +41,6 @@ public class UserController {
     })
 
     @PostMapping ("/add")
-    @PreAuthorize("hasRole('ROLE_ROOT')")
     public Result addUser(String userName, String password, String nickName, HttpServletRequest request) {
         User user = new User();
         user.setEnable(1);

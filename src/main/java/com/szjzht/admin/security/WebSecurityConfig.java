@@ -1,7 +1,6 @@
 package com.szjzht.admin.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * @Description:
  */
 @EnableWebMvc
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Component
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -37,16 +35,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/user/add").hasRole("ROOT")
                 .anyRequest()
-                .authenticated()// 其他 url 需要身份认证
+                .authenticated()
                 .and()
-                .formLogin()  //开启登录
+                .formLogin()
                 .loginPage("/static/login.html")
                 .loginProcessingUrl("/login")
                 .successHandler(successAuthenticationHandler)
                 .failureHandler(failureAuthenticationHandler)
                 .permitAll()
-
                 .and()
                 .logout()
                 .logoutUrl("/logout")
